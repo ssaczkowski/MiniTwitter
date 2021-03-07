@@ -20,6 +20,12 @@ out/
 # Gradle files
 .gradle/
 build/
+gradlew.bat
+gradlew
+gradle/wrapper
+
+# Ide
+.idea
 
 # Local configuration file (sdk path, etc)
 local.properties
