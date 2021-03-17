@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        tools:srcCompat="@drawable/ic_logo_minitwitter_white" />
+        android:src="@drawable/ic_logo_minitwitter_white" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress"
@@ -64,7 +64,7 @@
         android:backgroundTint="@color/white"
         android:text="@string/login"
         android:textColor="@color/blueDark"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSignUp"
         app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/editTextPassword"
