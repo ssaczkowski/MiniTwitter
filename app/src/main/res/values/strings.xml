@@ -7,4 +7,10 @@
     <string name="log_in_here">If you already have an account, log in here.</string>
     <string name="sign_up">Sign Up</string>
     <string name="user_name">User name</string>
+    <string name="email_mandatory">Email is required</string>
+    <string name="pass_mandatory">Password is required</string>
+    <string name="title_activity_dashboard">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

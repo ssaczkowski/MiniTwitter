@@ -1,8 +1,8 @@
 package com.ssaczkowski.minitwitter.retrofit;
 
-import com.ssaczkowski.minitwitter.retrofit.model.RequestLogin;
-import com.ssaczkowski.minitwitter.retrofit.model.RequestSignup;
-import com.ssaczkowski.minitwitter.retrofit.model.ResponseAuth;
+import com.ssaczkowski.minitwitter.retrofit.request.RequestLogin;
+import com.ssaczkowski.minitwitter.retrofit.request.RequestSignup;
+import com.ssaczkowski.minitwitter.retrofit.response.ResponseAuth;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

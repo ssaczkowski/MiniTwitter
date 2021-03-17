@@ -10,8 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniTwitter">
-        <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".ui.DashboardActivity"
+            android:label="@string/title_activity_dashboard"></activity>
+        <activity android:name=".ui.SignUpActivity" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
