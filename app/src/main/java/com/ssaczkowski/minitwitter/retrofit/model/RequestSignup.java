@@ -1,4 +1,4 @@
-package com.ssaczkowski.minitwitter.model;
+package com.ssaczkowski.minitwitter.retrofit.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
