@@ -93,18 +93,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onResponse(Call<ResponseAuth> call, Response<ResponseAuth> response) {
                     if(response.isSuccessful()){
-                        Toast.makeText(MainActivity.this, "Sesión iniciada correctamente.",Toast.LENGTH_LONG);
+                        Toast.makeText(MainActivity.this, "Session successfully started.",
+                                Toast.LENGTH_LONG);
                         Intent i = new Intent(MainActivity.this,DashboardActivity.class);
                         startActivity(i);
                         finish();
                     } else {
-                        Toast.makeText(MainActivity.this, "Hubo un error, revise sus datos.",Toast.LENGTH_LONG);
+                        Toast.makeText(MainActivity.this, "There was an error, check your details.",
+                                Toast.LENGTH_LONG);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseAuth> call, Throwable t) {
-                    Toast.makeText(MainActivity.this, "En estos momentos no lo podemos atender, inténtelo más tarde.",Toast.LENGTH_LONG);
+                    Toast.makeText(MainActivity.this, "We cannot assist you at this time, please try again later.",
+                            Toast.LENGTH_LONG);
                 }
             });
         }

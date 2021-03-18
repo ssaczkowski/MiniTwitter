@@ -18,6 +18,13 @@ public class RequestSignup {
     @Expose
     private String code;
 
+    public RequestSignup(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.code = "UDEMYANDROID";
+    }
+
     public String getUsername() {
         return username;
     }
