@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ssaczkowski.minitwitter.R;
+import com.ssaczkowski.minitwitter.common.Constant;
+import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
 import com.ssaczkowski.minitwitter.retrofit.MiniTwitterClient;
 import com.ssaczkowski.minitwitter.retrofit.MiniTwitterService;
 import com.ssaczkowski.minitwitter.retrofit.request.RequestSignup;
@@ -97,6 +99,18 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onResponse(Call<ResponseAuth> call, Response<ResponseAuth> response) {
                     if(response.isSuccessful()){
+                        SharedPreferencesManager
+                                .setSomeStringValue(Constant.PREF_TOKEN,response.body().getToken());
+                        SharedPreferencesManager
+                                .setSomeStringValue(Constant.PREF_USERNAME,response.body().getUsername());
+                        SharedPreferencesManager
+                                .setSomeStringValue(Constant.PREF_EMAIL,response.body().getEmail());
+                        SharedPreferencesManager
+                                .setSomeStringValue(Constant.PREF_PHOTOURL,response.body().getPhotoUrl());
+                        SharedPreferencesManager
+                                .setSomeStringValue(Constant.PREF_CREATED,response.body().getCreated());
+                        SharedPreferencesManager
+                                .setSomeBooleanValue(Constant.PREF_ACTIVE,response.body().getActive());
                         Intent i = new Intent(SignUpActivity.this,DashboardActivity.class);
                         startActivity(i);
                         finish();
