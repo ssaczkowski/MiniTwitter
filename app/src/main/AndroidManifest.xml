@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MiniTwitter">
         <activity
             android:name=".ui.DashboardActivity"
-            android:label="@string/title_activity_dashboard"></activity>
+            android:label="@string/title_activity_dashboard" />
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>

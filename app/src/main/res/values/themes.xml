@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MiniTwitter" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">#BBBBBB</item>
+        <item name="colorPrimary">@color/blueBrilliant</item>
+        <item name="colorPrimaryVariant">#DDDDDD</item>
         <item name="colorOnPrimary">#BBBBBB</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blueDark</item>
@@ -23,4 +23,13 @@
     });
     ur theme here. -->
     </style>
+
+    <style name="Theme.MiniTwitter.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MiniTwitter.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MiniTwitter.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
