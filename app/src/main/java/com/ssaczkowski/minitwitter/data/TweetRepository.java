@@ -19,9 +19,9 @@ import retrofit2.Response;
 
 public class TweetRepository {
 
-    private AuthTwitterService authTwitterService;
-    private AuthTwitterClient authTwitterClient;
-    private LiveData<List<Tweet>> allTweets;
+    AuthTwitterService authTwitterService;
+    AuthTwitterClient authTwitterClient;
+    LiveData<List<Tweet>> allTweets;
 
     public TweetRepository() {
         authTwitterClient = AuthTwitterClient.getInstance();

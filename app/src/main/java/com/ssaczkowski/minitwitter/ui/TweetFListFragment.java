@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,19 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ssaczkowski.minitwitter.R;
+import com.ssaczkowski.minitwitter.data.TweetViewModel;
 import com.ssaczkowski.minitwitter.model.Tweet;
-import com.ssaczkowski.minitwitter.retrofit.AuthTwitterClient;
-import com.ssaczkowski.minitwitter.retrofit.AuthTwitterService;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 public class TweetFListFragment extends Fragment {
 
@@ -32,6 +28,7 @@ public class TweetFListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private MyTweetRecyclerViewAdapter mAdapter;
     private List<Tweet> mItems;
+    private TweetViewModel tweetViewModel;
 
 
     public TweetFListFragment(List<Tweet> items) {
@@ -59,6 +56,8 @@ public class TweetFListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        tweetViewModel = new ViewModelProvider(getActivity()).get(TweetViewModel.class);
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -83,11 +82,16 @@ public class TweetFListFragment extends Fragment {
         return view;
     }
 
-
     private void loadTweetData() {
+        tweetViewModel.getTweets().observe(getActivity(), new Observer<List<Tweet>>() {
+            @Override
+            public void onChanged(List<Tweet> tweets) {
+                mItems = tweets;
+                mAdapter.setData(mItems);
+            }
+        });
 
         mAdapter = new MyTweetRecyclerViewAdapter(mItems,getContext());
         mRecyclerView.setAdapter(mAdapter);
-
     }
 }
