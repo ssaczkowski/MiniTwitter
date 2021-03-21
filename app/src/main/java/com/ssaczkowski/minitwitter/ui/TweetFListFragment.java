@@ -32,8 +32,7 @@ public class TweetFListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private MyTweetRecyclerViewAdapter mAdapter;
     private List<Tweet> mItems;
-    private AuthTwitterService authTwitterService;
-    private AuthTwitterClient authTwitterClient;
+
 
     public TweetFListFragment(List<Tweet> items) {
         mItems = items;
@@ -79,39 +78,16 @@ public class TweetFListFragment extends Fragment {
             } else {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            retrofitInit();
             loadTweetData();
         }
         return view;
     }
 
-    private void retrofitInit() {
-        authTwitterClient = AuthTwitterClient.getInstance();
-        authTwitterService = authTwitterClient.getAuthTwitterService();
-    }
 
     private void loadTweetData() {
 
-        Call<List<Tweet>> call = authTwitterService.getAllTweets();
-        call.enqueue(new Callback<List<Tweet>>() {
-            @Override
-            public void onResponse(Call<List<Tweet>> call, Response<List<Tweet>> response) {
-                if(response.isSuccessful()){
-                    mItems = response.body();
-                    mAdapter = new MyTweetRecyclerViewAdapter(mItems,getContext());
-                    mRecyclerView.setAdapter(mAdapter);
-                }else{
-                    Toast.makeText(getActivity(), "There was an error, check your details.",
-                            Toast.LENGTH_LONG);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Tweet>> call, Throwable t) {
-                Toast.makeText(getActivity(), "We cannot assist you at this time, please try again later.",
-                        Toast.LENGTH_LONG);
-            }
-        });
+        mAdapter = new MyTweetRecyclerViewAdapter(mItems,getContext());
+        mRecyclerView.setAdapter(mAdapter);
 
     }
 }
