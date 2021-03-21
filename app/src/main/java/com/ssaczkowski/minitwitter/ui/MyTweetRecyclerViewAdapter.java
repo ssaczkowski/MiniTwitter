@@ -3,12 +3,18 @@ package com.ssaczkowski.minitwitter.ui;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ssaczkowski.minitwitter.R;
+import com.ssaczkowski.minitwitter.common.Constant;
+import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
+import com.ssaczkowski.minitwitter.model.Like;
 import com.ssaczkowski.minitwitter.model.Tweet;
 
 import java.util.List;
@@ -20,10 +26,12 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
 
     private Context ctx;
     private final List<Tweet> mValues;
+    private String mUsername;
 
     public MyTweetRecyclerViewAdapter(List<Tweet> items,Context context) {
         mValues = items;
         ctx = context;
+        mUsername = SharedPreferencesManager.getSomeStringValue(Constant.PREF_USERNAME);
     }
 
     @Override
@@ -36,8 +44,25 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
-        holder.mContentView.setText(mValues.get(position).getMensaje());
+        holder.mTvUsername.setText(holder.mItem.getUser().getUsername());
+        holder.mTvMessage.setText(holder.mItem.getMensaje());
+        holder.mTvLikesCount.setText(holder.mItem.getLikes().size());
+
+        String photo = holder.mItem.getUser().getPhotoUrl();
+        if(!photo.equals("")){
+            Glide.with(ctx).load("https://www.minitwitter.com/apiv1/uploads/photos/" +
+                    photo).into(holder.mIvAvatar);
+        }
+
+        for(Like like: holder.mItem.getLikes()){
+            if (like.getUsername().equals(mUsername)){
+                Glide.with(ctx).load(R.drawable.ic_like_pink).into(holder.mIvLike);
+                holder.mTvLikesCount.setTextColor(ctx.getResources().getColor(R.color.pink));
+                holder.mTvLikesCount.setTypeface(null, Typeface.BOLD);
+                break;
+            }
+        }
+
     }
 
     @Override
@@ -47,20 +72,26 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final ImageView mIvAvatar;
+        public final ImageView mIvLike;
+        public final TextView mTvUsername;
+        public final TextView mTvMessage;
+        public final TextView mTvLikesCount;
         public Tweet mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mIvAvatar = (ImageView) view.findViewById(R.id.imageViewAvatar);
+            mIvLike = (ImageView) view.findViewById(R.id.imageViewLike);
+            mTvUsername = (TextView) view.findViewById(R.id.textViewUsername);
+            mTvLikesCount = (TextView) view.findViewById(R.id.textViewLikes);
+            mTvMessage = (TextView) view.findViewById(R.id.textViewMessage);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mTvUsername.getText() + "'";
         }
     }
 }
