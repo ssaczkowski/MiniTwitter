@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +18,7 @@ import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.data.TweetViewModel;
 import com.ssaczkowski.minitwitter.model.Tweet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TweetFListFragment extends Fragment {
@@ -27,7 +27,7 @@ public class TweetFListFragment extends Fragment {
     private int mColumnCount = 1;
     private RecyclerView mRecyclerView;
     private MyTweetRecyclerViewAdapter mAdapter;
-    private List<Tweet> mItems;
+    private List<Tweet> mItems = new ArrayList<>();
     private TweetViewModel tweetViewModel;
 
 
@@ -77,6 +77,10 @@ public class TweetFListFragment extends Fragment {
             } else {
                 mRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+
+            mAdapter = new MyTweetRecyclerViewAdapter(mItems,getContext());
+            mRecyclerView.setAdapter(mAdapter);
+
             loadTweetData();
         }
         return view;
@@ -90,8 +94,5 @@ public class TweetFListFragment extends Fragment {
                 mAdapter.setData(mItems);
             }
         });
-
-        mAdapter = new MyTweetRecyclerViewAdapter(mItems,getContext());
-        mRecyclerView.setAdapter(mAdapter);
     }
 }

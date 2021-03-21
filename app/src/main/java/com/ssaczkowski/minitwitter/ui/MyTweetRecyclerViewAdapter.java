@@ -17,6 +17,7 @@ import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
 import com.ssaczkowski.minitwitter.model.Like;
 import com.ssaczkowski.minitwitter.model.Tweet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,7 +100,7 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
     }
 
     public void setData(List<Tweet> tweetList){
-        this.mValues = tweetList;
+        mValues = tweetList;
         notifyDataSetChanged();
     }
 
