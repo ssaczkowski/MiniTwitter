@@ -15,7 +15,7 @@ public class AuthInterceptor implements Interceptor {
         String token = SharedPreferencesManager.getSomeStringValue(Constant.PREF_TOKEN);
 
         Request request = chain.request().newBuilder()
-                .addHeader("Authorization",token).build();
+                .addHeader("Authorization","Bearer " + token).build();
 
         return chain.proceed(request);
     }
