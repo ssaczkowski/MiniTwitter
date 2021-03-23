@@ -32,4 +32,16 @@
     <style name="Theme.MiniTwitter.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MiniTwitter.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="colorPrimary">@color/blueBrilliant</item>
+        <item name="colorPrimaryVariant">#DDDDDD</item>
+        <item name="colorSecondary">@color/blueBrilliant</item>
+
+        <!-- fullscreen option -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name ="android:windowIsFloating">false</item>
+        <item name ="android:windowBackground">@color/white</item>
+    </style>
 </resources>
