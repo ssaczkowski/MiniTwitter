@@ -14,7 +14,17 @@
         android:theme="@style/Theme.MiniTwitter">
         <activity
             android:name=".ui.DashboardActivity"
-            android:label="@string/title_activity_dashboard" />
+            android:label="@string/title_activity_dashboard">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="com.ssaczkowski.minitwitter"
+                    android:pathPrefix="/dashboard"
+                    android:scheme="https"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>

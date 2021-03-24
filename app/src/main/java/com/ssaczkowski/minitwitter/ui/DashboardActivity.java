@@ -1,5 +1,7 @@
 package com.ssaczkowski.minitwitter.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -21,6 +23,20 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        if(getIntent() != null){
+            String action = getIntent().getAction();
+            try {
+                if(action != null && action.equals(Intent.ACTION_VIEW)){
+                    Uri data = getIntent().getData();
+                    if (data != null){
+                        data.getLastPathSegment();
+                    }
+                }
+            } catch (NullPointerException e){
+                e.printStackTrace();
+            }
+        }
 
         floatingActionButton = findViewById(R.id.fab);
 
