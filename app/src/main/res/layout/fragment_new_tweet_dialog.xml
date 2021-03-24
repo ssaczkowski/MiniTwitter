@@ -53,6 +53,7 @@
         android:inputType="textMultiLine"
         android:textColor="@color/black"
         android:textColorHighlight="@color/blueBrilliant"
+        android:textColorHint="@color/darkerGray"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewAvatar"
         app:layout_constraintEnd_toEndOf="parent"

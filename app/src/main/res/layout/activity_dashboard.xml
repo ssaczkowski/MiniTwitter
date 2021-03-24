@@ -76,7 +76,6 @@
             app:backgroundTint="@color/blue"
             app:layout_constraintBottom_toTopOf="@+id/nav_view"
             app:layout_constraintEnd_toEndOf="parent"
-            android:tint="@android:color/white"
             app:srcCompat="@drawable/ic_write_tweet" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
