@@ -20,6 +20,13 @@ public class Tweet {
     @Expose
     private User user;
 
+    public Tweet(Tweet tweet) {
+        this.id = tweet.id;
+        this.mensaje = tweet.mensaje;
+        this.likes = tweet.likes;
+        this.user = tweet.user;
+    }
+
     public Integer getId() {
         return id;
     }
