@@ -6,6 +6,7 @@ import com.ssaczkowski.minitwitter.retrofit.request.RequestCreateTweet;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
@@ -15,6 +16,6 @@ public interface AuthTwitterService {
     Call<List<Tweet>> getAllTweets();
 
     @POST("tweets/create")
-    Call<Tweet> createTweet(RequestCreateTweet requestCreateTweet);
+    Call<Tweet> createTweet(@Body RequestCreateTweet requestCreateTweet);
 
 }

@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ssaczkowski.minitwitter.R;
+import com.ssaczkowski.minitwitter.common.Constant;
+import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -18,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 public class DashboardActivity extends AppCompatActivity {
 
     private FloatingActionButton floatingActionButton;
+    private ImageView ivAvatarToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }
 
+        ivAvatarToolbar = findViewById(R.id.imageViewToolbarPhoto);
         floatingActionButton = findViewById(R.id.fab);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -59,6 +65,13 @@ public class DashboardActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(),"NewTweetDialogFragment");
             }
         });
+
+        String photoUrl = SharedPreferencesManager.getSomeStringValue(Constant.PREF_PHOTOURL);
+        if(!photoUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(Constant.API_MINITWITTER_FILES_URL + photoUrl)
+                    .into(ivAvatarToolbar);
+        }
 
     }
 

@@ -24,4 +24,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="what_s_going_on">Whats going on?</string>
+    <string name="delete_tweet_question">Do you really want to delete the tweet?</string>
+    <string name="cancel_tweet">Cancel Tweet</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="you_must_write">You must write a text for the tweet.</string>
 </resources>

@@ -2,7 +2,6 @@ package com.ssaczkowski.minitwitter.data;
 
 import android.widget.Toast;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ssaczkowski.minitwitter.common.MyApp;
@@ -10,7 +9,6 @@ import com.ssaczkowski.minitwitter.model.Tweet;
 import com.ssaczkowski.minitwitter.retrofit.AuthTwitterClient;
 import com.ssaczkowski.minitwitter.retrofit.AuthTwitterService;
 import com.ssaczkowski.minitwitter.retrofit.request.RequestCreateTweet;
-import com.ssaczkowski.minitwitter.ui.MyTweetRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +54,7 @@ public class TweetRepository {
             }
         });
 
-        return getAllTweets();
+        return allTweets;
     }
 
     public void createTweet(String message){
