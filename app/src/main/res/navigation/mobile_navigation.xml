@@ -9,13 +9,23 @@
         android:id="@+id/navigation_home"
         android:name="com.ssaczkowski.minitwitter.ui.TweetFListFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_tweet_f_listragment_list" />
+        tools:layout="@layout/fragment_tweet_f_listragment_list">
+        <argument
+            android:name="tweetListType"
+            app:argType="integer"
+            android:defaultValue="1"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_tweets_like"
-        android:name="com.ssaczkowski.minitwitter.ui.dashboard.DashboardFragment"
+        android:name="com.ssaczkowski.minitwitter.ui.TweetFListFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_tweet_f_listragment_list" >
+        <argument
+            android:name="tweetListType"
+            app:argType="integer"
+            android:defaultValue="2"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_profile"

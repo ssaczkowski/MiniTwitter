@@ -3,6 +3,7 @@ package com.ssaczkowski.minitwitter.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,6 +24,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private FloatingActionButton floatingActionButton;
     private ImageView ivAvatarToolbar;
+    private NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +54,12 @@ public class DashboardActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_tweets_like, R.id.navigation_profile)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, mNavController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, mNavController);
+
+        navView.setOnNavigationItemReselectedListener( item ->
+                checkItem(item));
 
         getSupportActionBar().hide();
 
@@ -73,6 +78,20 @@ public class DashboardActivity extends AppCompatActivity {
                     .into(ivAvatarToolbar);
         }
 
+    }
+
+    private boolean checkItem(MenuItem item) {
+        if(item.getItemId() == R.id.navigation_home){
+            Bundle args = new Bundle();
+            args.putInt(Constant.TWEET_LIST_TYPE,Constant.TWEET_LIST_ALL);
+            mNavController.navigate(item.getItemId(), args);
+
+        } else if(item.getItemId() == R.id.navigation_tweets_like){
+            Bundle args = new Bundle();
+            args.putInt(Constant.TWEET_LIST_TYPE,Constant.TWEET_LIST_FAVS);
+            mNavController.navigate(item.getItemId(), args);
+        }
+        return true;
     }
 
 }
