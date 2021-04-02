@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MiniTwitter">
         <activity
-            android:name=".ui.DashboardActivity"
+            android:name=".ui.dashboard.DashboardActivity"
             android:label="@string/title_activity_dashboard">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW"/>
@@ -25,8 +25,8 @@
                     android:scheme="https"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SignUpActivity" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.auth.SignUpActivity" />
+        <activity android:name=".ui.auth.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

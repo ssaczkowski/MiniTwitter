@@ -1,4 +1,4 @@
-package com.ssaczkowski.minitwitter.ui;
+package com.ssaczkowski.minitwitter.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,7 @@ import com.ssaczkowski.minitwitter.retrofit.MiniTwitterClient;
 import com.ssaczkowski.minitwitter.retrofit.MiniTwitterService;
 import com.ssaczkowski.minitwitter.retrofit.request.RequestSignup;
 import com.ssaczkowski.minitwitter.retrofit.response.ResponseAuth;
+import com.ssaczkowski.minitwitter.ui.dashboard.DashboardActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -111,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 .setSomeStringValue(Constant.PREF_CREATED,response.body().getCreated());
                         SharedPreferencesManager
                                 .setSomeBooleanValue(Constant.PREF_ACTIVE,response.body().getActive());
-                        Intent i = new Intent(SignUpActivity.this,DashboardActivity.class);
+                        Intent i = new Intent(SignUpActivity.this, DashboardActivity.class);
                         startActivity(i);
                         finish();
                     } else{
@@ -130,7 +131,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void goToLogin() {
-        Intent i = new Intent(SignUpActivity.this,MainActivity.class);
+        Intent i = new Intent(SignUpActivity.this, MainActivity.class);
         startActivity(i);
         finish();
     }

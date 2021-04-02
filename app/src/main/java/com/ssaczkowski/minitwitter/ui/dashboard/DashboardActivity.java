@@ -1,4 +1,4 @@
-package com.ssaczkowski.minitwitter.ui;
+package com.ssaczkowski.minitwitter.ui.dashboard;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,8 +13,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
+import com.ssaczkowski.minitwitter.ui.tweets.NewTweetDialogFragment;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -95,6 +95,7 @@ public class DashboardActivity extends AppCompatActivity {
             mNavController.navigate(item.getItemId(), args);
             floatingActionButton.hide();
         } else if(item.getItemId() == R.id.navigation_profile){
+            mNavController.navigate(item.getItemId());
             floatingActionButton.hide();
         }
 

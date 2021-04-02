@@ -1,4 +1,4 @@
-package com.ssaczkowski.minitwitter.ui;
+package com.ssaczkowski.minitwitter.ui.tweets;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

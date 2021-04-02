@@ -1,7 +1,6 @@
-package com.ssaczkowski.minitwitter.ui;
+package com.ssaczkowski.minitwitter.ui.tweets;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,7 +20,6 @@ import com.ssaczkowski.minitwitter.data.TweetViewModel;
 import com.ssaczkowski.minitwitter.model.Like;
 import com.ssaczkowski.minitwitter.model.Tweet;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

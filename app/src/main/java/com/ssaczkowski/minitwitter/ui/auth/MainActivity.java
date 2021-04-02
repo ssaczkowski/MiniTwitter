@@ -1,14 +1,11 @@
-package com.ssaczkowski.minitwitter.ui;
+package com.ssaczkowski.minitwitter.ui.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +18,7 @@ import com.ssaczkowski.minitwitter.retrofit.MiniTwitterClient;
 import com.ssaczkowski.minitwitter.retrofit.MiniTwitterService;
 import com.ssaczkowski.minitwitter.retrofit.request.RequestLogin;
 import com.ssaczkowski.minitwitter.retrofit.response.ResponseAuth;
+import com.ssaczkowski.minitwitter.ui.dashboard.DashboardActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         SharedPreferencesManager
                                 .setSomeBooleanValue(Constant.PREF_ACTIVE,response.body().getActive());
 
-                        Intent i = new Intent(MainActivity.this,DashboardActivity.class);
+                        Intent i = new Intent(MainActivity.this, DashboardActivity.class);
                         startActivity(i);
                         finish();
                     } else {
@@ -136,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void goToSignUp() {
 
-        Intent i = new Intent(MainActivity.this,SignUpActivity.class);
+        Intent i = new Intent(MainActivity.this, SignUpActivity.class);
         startActivity(i);
         finish();
     }

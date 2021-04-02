@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ssaczkowski.minitwitter.model.Tweet;
-import com.ssaczkowski.minitwitter.ui.BottomModalTweetFragment;
+import com.ssaczkowski.minitwitter.ui.tweets.BottomModalTweetFragment;
 
 import java.util.List;
 
