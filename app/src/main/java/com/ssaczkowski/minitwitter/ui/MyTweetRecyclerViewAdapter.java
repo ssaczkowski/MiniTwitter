@@ -73,6 +73,18 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
             holder.mTvLikesCount.setTextColor(ctx.getResources().getColor(R.color.black));
             holder.mTvLikesCount.setTypeface(null, Typeface.NORMAL);
 
+            holder.mIvShowMenu.setVisibility(View.GONE);
+            if(holder.mItem.getUser().getUsername().equals(mUsername)){
+                holder.mIvShowMenu.setVisibility(View.VISIBLE);
+            }
+
+            holder.mIvShowMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mTweetViewModel.openDialogTweetMenu(ctx , holder.mItem.getId());
+                }
+            });
+
             for(Like like: holder.mItem.getLikes()){
                 if (like.getUsername().equals(mUsername)){
                     Glide.with(ctx).load(R.drawable.ic_like_pink).into(holder.mIvLike);
@@ -95,6 +107,7 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
         public final View mView;
         public final ImageView mIvAvatar;
         public final ImageView mIvLike;
+        public final ImageView mIvShowMenu;
         public final TextView mTvUsername;
         public final TextView mTvMessage;
         public final TextView mTvLikesCount;
@@ -105,6 +118,7 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
             mView = view;
             mIvAvatar = (ImageView) view.findViewById(R.id.imageViewAvatar);
             mIvLike = (ImageView) view.findViewById(R.id.imageViewLike);
+            mIvShowMenu = (ImageView) view.findViewById(R.id.imageViewShowMenu);
             mTvUsername = (TextView) view.findViewById(R.id.textViewUsername);
             mTvLikesCount = (TextView) view.findViewById(R.id.textViewLikes);
             mTvMessage = (TextView) view.findViewById(R.id.textViewMessage);
