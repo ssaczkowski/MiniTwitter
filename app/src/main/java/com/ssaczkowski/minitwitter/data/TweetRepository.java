@@ -87,4 +87,37 @@ public class TweetRepository {
 
     }
 
+    public void likeTweet(int idTweet){
+
+        Call<Tweet> call = authTwitterService.likeTweet(idTweet);
+
+        call.enqueue(new Callback<Tweet>() {
+            @Override
+            public void onResponse(Call<Tweet> call, Response<Tweet> response) {
+
+                if(response.isSuccessful()){
+                    List<Tweet> clonedList = new ArrayList<>();
+
+                    for(int i = 0 ; i < allTweets.getValue().size(); i++){
+                        if(allTweets.getValue().get(i).getId() == response.body().getId())
+                            clonedList.add(response.body());
+                        else
+                            clonedList.add(new Tweet(allTweets.getValue().get(i)));
+                    }
+                    allTweets.setValue(clonedList);
+                } else {
+                    Toast.makeText(MyApp.getContext(), "There was an error, check your details.",
+                            Toast.LENGTH_LONG);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Tweet> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "We cannot assist you at this time, please try again later.",
+                        Toast.LENGTH_LONG);
+            }
+        });
+
+    }
+
 }

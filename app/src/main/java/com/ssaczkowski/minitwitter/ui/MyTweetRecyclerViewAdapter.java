@@ -1,5 +1,8 @@
 package com.ssaczkowski.minitwitter.ui;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -14,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
+import com.ssaczkowski.minitwitter.data.TweetViewModel;
 import com.ssaczkowski.minitwitter.model.Like;
 import com.ssaczkowski.minitwitter.model.Tweet;
 
@@ -28,11 +32,13 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
     private Context ctx;
     private List<Tweet> mValues;
     private String mUsername;
+    private TweetViewModel mTweetViewModel;
 
     public MyTweetRecyclerViewAdapter(List<Tweet> items,Context context) {
         mValues = items;
         ctx = context;
         mUsername = SharedPreferencesManager.getSomeStringValue(Constant.PREF_USERNAME);
+        mTweetViewModel = new ViewModelProvider((FragmentActivity) context).get(TweetViewModel.class);
     }
 
     @Override
@@ -55,6 +61,13 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
                 Glide.with(ctx).load("https://www.minitwitter.com/apiv1/uploads/photos/" +
                         photo).into(holder.mIvAvatar);
             }
+
+            holder.mIvLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mTweetViewModel.likeTweet(holder.mItem.getId());
+                }
+            });
 
             Glide.with(ctx).load(R.drawable.ic_baseline_favorite_border_24_black).into(holder.mIvLike);
             holder.mTvLikesCount.setTextColor(ctx.getResources().getColor(R.color.black));

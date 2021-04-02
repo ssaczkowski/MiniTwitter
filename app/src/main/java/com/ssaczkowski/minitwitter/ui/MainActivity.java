@@ -2,11 +2,13 @@ package com.ssaczkowski.minitwitter.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToLogin() {
+
         String pass = etPassword.getText().toString();
         String email = etEmail.getText().toString();
 
@@ -132,8 +135,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void goToSignUp() {
+
         Intent i = new Intent(MainActivity.this,SignUpActivity.class);
         startActivity(i);
         finish();
     }
+
 }
