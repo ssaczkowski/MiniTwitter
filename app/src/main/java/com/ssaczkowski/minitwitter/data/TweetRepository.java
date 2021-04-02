@@ -12,6 +12,7 @@ import com.ssaczkowski.minitwitter.model.Tweet;
 import com.ssaczkowski.minitwitter.retrofit.AuthTwitterClient;
 import com.ssaczkowski.minitwitter.retrofit.AuthTwitterService;
 import com.ssaczkowski.minitwitter.retrofit.request.RequestCreateTweet;
+import com.ssaczkowski.minitwitter.retrofit.response.TweetDeleted;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -152,6 +153,39 @@ public class TweetRepository {
             }
         });
 
+    }
+
+    public void deleteTweet(final int idTweet){
+        Call<TweetDeleted> call = authTwitterService.deleteTweet(idTweet);
+
+        call.enqueue(new Callback<TweetDeleted>() {
+            @Override
+            public void onResponse(Call<TweetDeleted> call, Response<TweetDeleted> response) {
+
+                if(response.isSuccessful()){
+
+                    List<Tweet> clonedTweets = new ArrayList<>();
+                    for(int i = 0 ; i < allTweets.getValue().size(); i++){
+                        if(allTweets.getValue().get(i).getId() != idTweet)
+                            clonedTweets.add(new Tweet(allTweets.getValue().get(i)));
+                    }
+
+                    allTweets.setValue(clonedTweets);
+                    getFavsTweets();
+
+                } else {
+                    Toast.makeText(MyApp.getContext(), "There was an error, check your details.",
+                            Toast.LENGTH_LONG);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TweetDeleted> call, Throwable t) {
+                Toast.makeText(MyApp.getContext(), "We cannot assist you at this time, please try again later.",
+                        Toast.LENGTH_LONG);
+            }
+        });
     }
 
 }
