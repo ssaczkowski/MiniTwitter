@@ -105,10 +105,25 @@ public class TweetFListFragment extends Fragment {
     }
 
     private void loadNewTweetFavData() {
+        tweetViewModel.getNewFavTweets().observe(getActivity(), new Observer<List<Tweet>>() {
+            @Override
+            public void onChanged(List<Tweet> tweets) {
+                mItems  = tweets;
+                mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.setData(mItems);
+                tweetViewModel.getNewFavTweets().removeObserver(this);
+            }
+        });
     }
 
     private void loadTweetFavData() {
-     
+        tweetViewModel.getFavTweets().observe(getActivity(), new Observer<List<Tweet>>() {
+            @Override
+            public void onChanged(List<Tweet> tweets) {
+                mItems  = tweets;
+                mAdapter.setData(mItems);
+            }
+        });
     }
 
     private void loadTweetData() {

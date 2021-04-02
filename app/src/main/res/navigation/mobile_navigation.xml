@@ -11,7 +11,7 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_tweet_f_listragment_list">
         <argument
-            android:name="tweetListType"
+            android:name="TWEET_LIST_TYPE"
             app:argType="integer"
             android:defaultValue="1"/>
     </fragment>
@@ -22,7 +22,7 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_tweet_f_listragment_list" >
         <argument
-            android:name="tweetListType"
+            android:name="TWEET_LIST_TYPE"
             app:argType="integer"
             android:defaultValue="2"/>
     </fragment>

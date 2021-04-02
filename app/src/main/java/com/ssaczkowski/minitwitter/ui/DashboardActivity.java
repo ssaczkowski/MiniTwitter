@@ -14,6 +14,7 @@ import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,6 +26,7 @@ public class DashboardActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
     private ImageView ivAvatarToolbar;
     private NavController mNavController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +58,10 @@ public class DashboardActivity extends AppCompatActivity {
                 .build();
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, mNavController, appBarConfiguration);
+
         NavigationUI.setupWithNavController(navView, mNavController);
 
-        navView.setOnNavigationItemReselectedListener( item ->
-                checkItem(item));
+        navView.setOnNavigationItemSelectedListener(item -> checkItem(item));
 
         getSupportActionBar().hide();
 
@@ -85,13 +87,18 @@ public class DashboardActivity extends AppCompatActivity {
             Bundle args = new Bundle();
             args.putInt(Constant.TWEET_LIST_TYPE,Constant.TWEET_LIST_ALL);
             mNavController.navigate(item.getItemId(), args);
+            floatingActionButton.show();
 
         } else if(item.getItemId() == R.id.navigation_tweets_like){
             Bundle args = new Bundle();
             args.putInt(Constant.TWEET_LIST_TYPE,Constant.TWEET_LIST_FAVS);
             mNavController.navigate(item.getItemId(), args);
+            floatingActionButton.hide();
+        } else if(item.getItemId() == R.id.navigation_profile){
+            floatingActionButton.hide();
         }
-        return true;
+
+        return false;
     }
 
 }
