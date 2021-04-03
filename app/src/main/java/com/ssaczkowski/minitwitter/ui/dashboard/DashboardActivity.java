@@ -6,14 +6,21 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
+import com.ssaczkowski.minitwitter.ui.auth.SignUpActivity;
 import com.ssaczkowski.minitwitter.ui.tweets.NewTweetDialogFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +29,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements PermissionListener {
 
     private FloatingActionButton floatingActionButton;
     private ImageView ivAvatarToolbar;
@@ -107,4 +114,19 @@ public class DashboardActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+        //We invoke the photo selection from the gallery
+
+    }
+
+    @Override
+    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+        Toast.makeText(DashboardActivity.this, "Photo cannot be selected",Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+
+    }
 }

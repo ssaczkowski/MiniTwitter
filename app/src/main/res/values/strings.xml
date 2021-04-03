@@ -25,4 +25,7 @@
     <string name="password_required">Password is required</string>
     <string name="sending_information">Sending information to the server</string>
     <string name="saved_successfully">Data saved successfully</string>
+    <string name="permissions">Permissions</string>
+    <string name="profile_photo_permissions_dialog">The requested permissions are necessary to be able to select a profile photo</string>
+    <string name="agree">Agree</string>
 </resources>

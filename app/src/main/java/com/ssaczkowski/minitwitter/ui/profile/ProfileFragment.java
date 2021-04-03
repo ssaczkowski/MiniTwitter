@@ -3,6 +3,7 @@ package com.ssaczkowski.minitwitter.ui.profile;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.listener.single.CompositePermissionListener;
+import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.data.ProfileViewModel;
@@ -31,6 +36,7 @@ public class ProfileFragment extends Fragment {
     private ImageView ivAvatar;
     private EditText etUsername, etEmail, etPassword, etWebsite, etDescription;
     private Button btnSave, btnChagePassword;
+    private PermissionListener allPermissionsListener;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -77,6 +83,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               checkPermissions();
+            }
+        });
+
         //ViewModel
         mViewModel.userProfile.observe(getActivity(), new Observer<ResponseUserProfile>() {
             @Override
@@ -101,6 +114,23 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void checkPermissions() {
+        PermissionListener dialogOnDeniedPermissionListener = DialogOnDeniedPermissionListener.Builder.withContext(getActivity())
+                .withTitle(R.string.permissions)
+                .withMessage(R.string.profile_photo_permissions_dialog)
+                .withButtonText(R.string.agree)
+                .withIcon(R.mipmap.ic_launcher)
+                .build();
+
+        allPermissionsListener = new CompositePermissionListener((PermissionListener) getActivity(),
+                dialogOnDeniedPermissionListener);
+
+        Dexter.withContext(getActivity())
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(allPermissionsListener)
+                .check();
     }
 
     private boolean checkDataRequired(String username, String email, String password) {
