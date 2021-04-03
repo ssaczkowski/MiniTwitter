@@ -36,6 +36,10 @@ public class ProfileRepository {
             photoProfile = new MutableLiveData<>();
     }
 
+    public MutableLiveData<String> getPhotoProfile() {
+        return photoProfile;
+    }
+
     public MutableLiveData<ResponseUserProfile> getProfile(){
         if(userProfile == null){
             userProfile = new MutableLiveData<>();

@@ -24,12 +24,14 @@ import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
 import com.ssaczkowski.minitwitter.data.ProfileViewModel;
 import com.ssaczkowski.minitwitter.data.TweetViewModel;
+import com.ssaczkowski.minitwitter.retrofit.response.ResponseUserProfile;
 import com.ssaczkowski.minitwitter.ui.auth.SignUpActivity;
 import com.ssaczkowski.minitwitter.ui.tweets.NewTweetDialogFragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -101,6 +103,19 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
                     .skipMemoryCache(true)
                     .into(ivAvatarToolbar);
         }
+
+        profileViewModel.photoProfile.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String photo) {
+                Glide.with(DashboardActivity.this)
+                        .load(Constant.API_MINITWITTER_FILES_URL + photo)
+                        .dontAnimate()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(ivAvatarToolbar);
+            }
+        });
 
     }
 

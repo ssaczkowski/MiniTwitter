@@ -113,6 +113,20 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        mViewModel.photoProfile.observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String photo) {
+                if(!photo.isEmpty())
+                    Glide.with(getActivity())
+                        .load(Constant.API_MINITWITTER_FILES_URL + photo)
+                        .dontAnimate()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(ivAvatar);
+            }
+        });
+
         return view;
     }
 
@@ -151,8 +165,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-
+        mViewModel = new ViewModelProvider(getActivity()).get(ProfileViewModel.class);
     }
 
 }
