@@ -1,5 +1,6 @@
 package com.ssaczkowski.minitwitter.ui.profile;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -16,14 +17,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.ssaczkowski.minitwitter.R;
+import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.data.ProfileViewModel;
+import com.ssaczkowski.minitwitter.retrofit.response.ResponseUserProfile;
 
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel mViewModel;
     private ImageView ivAvatar;
-    private EditText etUsername, etEmail, etPassword;
+    private EditText etUsername, etEmail, etPassword, etWebsite, etDescription;
     private Button btnSave, btnChagePassword;
 
     public static ProfileFragment newInstance() {
@@ -40,6 +44,8 @@ public class ProfileFragment extends Fragment {
         etUsername = view.findViewById(R.id.editTextUserName);
         etEmail = view.findViewById(R.id.editTextEmail);
         etPassword = view.findViewById(R.id.editTextCurrentPassword);
+        etWebsite = view.findViewById(R.id.editTextWebSite);
+        etDescription = view.findViewById(R.id.editTextDescription);
         btnSave = view.findViewById(R.id.buttonSave);
         btnChagePassword = view.findViewById(R.id.buttonChangePassword);
 
@@ -58,12 +64,27 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //ViewModel
+        mViewModel.userProfile.observe(getActivity(), new Observer<ResponseUserProfile>() {
+            @Override
+            public void onChanged(ResponseUserProfile responseUserProfile) {
+                etUsername.setText(responseUserProfile.getUsername());
+                etDescription.setText(responseUserProfile.getDescripcion());
+                etEmail.setText(responseUserProfile.getEmail());
+                etWebsite.setText(responseUserProfile.getWebsite());
+                if(!responseUserProfile.getPhotoUrl().isEmpty()){
+                    Glide.with(getActivity()).load(Constant.API_MINITWITTER_FILES_URL + responseUserProfile.getPhotoUrl())
+                            .into(ivAvatar);
+                }
+            }
+        });
+
         return view;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
     }
