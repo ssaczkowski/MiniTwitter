@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.data.ProfileViewModel;
@@ -90,6 +91,10 @@ public class ProfileFragment extends Fragment {
 
                 if(!responseUserProfile.getPhotoUrl().isEmpty()){
                     Glide.with(getActivity()).load(Constant.API_MINITWITTER_FILES_URL + responseUserProfile.getPhotoUrl())
+                            .dontAnimate()
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
                             .into(ivAvatar);
                 }
             }

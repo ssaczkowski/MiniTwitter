@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ssaczkowski.minitwitter.R;
@@ -77,6 +78,10 @@ public class DashboardActivity extends AppCompatActivity {
         if(!photoUrl.isEmpty()) {
             Glide.with(this)
                     .load(Constant.API_MINITWITTER_FILES_URL + photoUrl)
+                    .dontAnimate()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .into(ivAvatarToolbar);
         }
 

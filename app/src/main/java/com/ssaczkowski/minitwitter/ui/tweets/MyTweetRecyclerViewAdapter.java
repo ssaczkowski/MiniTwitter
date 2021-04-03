@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
@@ -57,7 +58,12 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
             String photo = holder.mItem.getUser().getPhotoUrl();
             if(!photo.equals("")){
                 Glide.with(ctx).load("https://www.minitwitter.com/apiv1/uploads/photos/" +
-                        photo).into(holder.mIvAvatar);
+                        photo)
+                        .dontAnimate()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .into(holder.mIvAvatar);
             }
 
             holder.mIvLike.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +73,11 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
                 }
             });
 
-            Glide.with(ctx).load(R.drawable.ic_baseline_favorite_border_24_black).into(holder.mIvLike);
+            Glide.with(ctx).load(R.drawable.ic_baseline_favorite_border_24_black)
+                    .dontAnimate()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(holder.mIvLike);
             holder.mTvLikesCount.setTextColor(ctx.getResources().getColor(R.color.black));
             holder.mTvLikesCount.setTypeface(null, Typeface.NORMAL);
 
@@ -85,7 +95,11 @@ public class MyTweetRecyclerViewAdapter extends RecyclerView.Adapter<MyTweetRecy
 
             for(Like like: holder.mItem.getLikes()){
                 if (like.getUsername().equals(mUsername)){
-                    Glide.with(ctx).load(R.drawable.ic_like_pink).into(holder.mIvLike);
+                    Glide.with(ctx).load(R.drawable.ic_like_pink)
+                            .dontAnimate()
+                            .centerCrop()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true).into(holder.mIvLike);
                     holder.mTvLikesCount.setTextColor(ctx.getResources().getColor(R.color.pink));
                     holder.mTvLikesCount.setTypeface(null, Typeface.BOLD);
                     break;
