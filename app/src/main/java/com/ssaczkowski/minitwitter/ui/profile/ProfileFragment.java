@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.data.ProfileViewModel;
+import com.ssaczkowski.minitwitter.retrofit.request.RequestUserProfile;
 import com.ssaczkowski.minitwitter.retrofit.response.ResponseUserProfile;
 
 public class ProfileFragment extends Fragment {
@@ -53,7 +54,18 @@ public class ProfileFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"Click on save", Toast.LENGTH_SHORT).show();
+                String username = etUsername.getText().toString();
+                String email = etEmail.getText().toString();
+                String descripcion = etDescription.getText().toString();
+                String website = etWebsite.getText().toString();
+                String password = etPassword.getText().toString();
+
+                if(checkDataRequired(username, email, password)) {
+                    RequestUserProfile requestUserProfile = new RequestUserProfile(username, email, descripcion, website, password);
+                    mViewModel.updateProfile(requestUserProfile);
+                    Toast.makeText(getActivity(), R.string.sending_information,Toast.LENGTH_SHORT).show();
+                    btnSave.setEnabled(false);
+                }
             }
         });
 
@@ -72,6 +84,10 @@ public class ProfileFragment extends Fragment {
                 etDescription.setText(responseUserProfile.getDescripcion());
                 etEmail.setText(responseUserProfile.getEmail());
                 etWebsite.setText(responseUserProfile.getWebsite());
+
+                btnSave.setEnabled(true);
+                Toast.makeText(getActivity(), R.string.saved_successfully,Toast.LENGTH_SHORT).show();
+
                 if(!responseUserProfile.getPhotoUrl().isEmpty()){
                     Glide.with(getActivity()).load(Constant.API_MINITWITTER_FILES_URL + responseUserProfile.getPhotoUrl())
                             .into(ivAvatar);
@@ -80,6 +96,21 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private boolean checkDataRequired(String username, String email, String password) {
+        boolean isValid = false;
+
+        if(username.isEmpty()){
+            etUsername.setError(getString(R.string.username_required));
+        } else if(email.isEmpty()){
+            etEmail.setError(getString(R.string.email_required));
+        } else if(password.isEmpty()){
+            etPassword.setError(getString(R.string.password_required));
+        } else {
+            isValid = true;
+        }
+        return isValid;
     }
 
     @Override

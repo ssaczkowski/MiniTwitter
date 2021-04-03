@@ -20,4 +20,9 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="you_must_write">You must write a text for the tweet.</string>
+    <string name="username_required">Username is required</string>
+    <string name="email_required">Email is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="sending_information">Sending information to the server</string>
+    <string name="saved_successfully">Data saved successfully</string>
 </resources>

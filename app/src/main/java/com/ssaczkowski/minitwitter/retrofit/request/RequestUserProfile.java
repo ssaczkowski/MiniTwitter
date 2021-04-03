@@ -21,6 +21,14 @@ public class RequestUserProfile {
     @Expose
     private String password;
 
+    public RequestUserProfile(String username, String email, String descripcion, String website, String password) {
+        this.username = username;
+        this.email = email;
+        this.descripcion = descripcion;
+        this.website = website;
+        this.password = password;
+    }
+
     public String getUsername() {
         return username;
     }
