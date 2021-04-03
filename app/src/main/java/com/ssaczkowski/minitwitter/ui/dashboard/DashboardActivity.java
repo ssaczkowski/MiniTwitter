@@ -1,8 +1,10 @@
 package com.ssaczkowski.minitwitter.ui.dashboard;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,10 +22,15 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.ssaczkowski.minitwitter.R;
 import com.ssaczkowski.minitwitter.common.Constant;
 import com.ssaczkowski.minitwitter.common.SharedPreferencesManager;
+import com.ssaczkowski.minitwitter.data.ProfileViewModel;
+import com.ssaczkowski.minitwitter.data.TweetViewModel;
 import com.ssaczkowski.minitwitter.ui.auth.SignUpActivity;
 import com.ssaczkowski.minitwitter.ui.tweets.NewTweetDialogFragment;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -34,12 +41,15 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
     private FloatingActionButton floatingActionButton;
     private ImageView ivAvatarToolbar;
     private NavController mNavController;
+    private ProfileViewModel profileViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         if(getIntent() != null){
             String action = getIntent().getAction();
@@ -117,6 +127,32 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
     @Override
     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
         //We invoke the photo selection from the gallery
+        Intent selectPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(selectPhoto,Constant.SELECT_PHOTO_GALLERY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            if (requestCode == Constant.SELECT_PHOTO_GALLERY) {
+                if(data != null){
+                    Uri photoSelected = data.getData();// content://gallery/photos/..
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(photoSelected, filePathColumn,
+                            null,null,null);
+
+                    if(cursor != null){
+                        cursor.moveToFirst();
+                        int photoIndex = cursor.getColumnIndex(filePathColumn[0]); // filename = filePathColumn[0]
+                        String photoPath = cursor.getString(photoIndex);
+                        profileViewModel.uploadPhoto(photoPath);
+                        cursor.close();
+                    }
+                }
+            }
+        }
 
     }
 
